@@ -1,0 +1,52 @@
+<div class="absolute inset-0 flex min-w-0 flex-col overflow-y-auto" cdkScrollable>
+  <div *ngIf="loading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="flex flex-col h-full">
+    <!-- First row (50% height) -->
+    <div class="flex w-full h-1/2 gap-4 p-4 sm:p-6">
+      <div class="w-1/2 h-full overflow-hidden">
+        <div class="w-100-p overflow-hidden" #pageContainer1>
+          <chart-column-line *ngIf="labelsAgeDistribution&&seriesLineAgeDistribution" [title]="titleAgeDistribution"
+            [height]="totalHeight1 + 56" [labelColumns]="labelColumnsAgeDistribution"
+            [labelLine]="labelLineAgeDistribution" [seriesColumn]="seriesColumnAgeDistribution"
+            [seriesLine]="seriesLineAgeDistribution" [labels]="labelsAgeDistribution"
+            [title]="titleAgeDistribution"></chart-column-line>
+          <!-- <table-dynamic *ngIf="totalHeight1" [tableId]="'995ff045-0ece-46b3-b763-28f6002d7a76'" [source]="'loaded'"
+            [height]="totalHeight1" [data]="dataFiltered"></table-dynamic> -->
+        </div>
+      </div>
+
+      <div class="w-1/2 h-full overflow-hidden">
+        <chart-column-line *ngIf="labelsGenderDistribution&&seriesLineGenderDistribution"
+          [title]="titleGenderDistribution" [height]="totalHeight1 + 56" [labelColumns]="labelColumnsGenderDistribution"
+          [labelLine]="labelLineGenderDistribution" [seriesColumn]="seriesColumnGenderDistribution"
+          [seriesLine]="seriesLineGenderDistribution" [labels]="labelsGenderDistribution"
+          [title]="titleGenderDistribution"></chart-column-line>
+      </div>
+    </div>
+
+    <!-- Second row (50% height) -->
+    <div class="flex w-full h-1/2 gap-4 p-4 sm:p-6">
+      <div class="w-1/2 h-full overflow-hidden">
+        <div class="w-100-p overflow-hidden" #pageContainer2>
+          <table-dynamic *ngIf="totalHeight2" [tableId]="'d7dd7b2c-030f-497e-9a29-e10a74183334'" [source]="'loaded'"
+            [height]="totalHeight2" [data]="dataFiltered"></table-dynamic>
+        </div>
+      </div>
+
+      <div class="w-1/2 h-full overflow-hidden">
+        <div class="w-100-p overflow-hidden" #pageContainer2>
+          <table-dynamic *ngIf="totalHeight2" [tableId]="'9657369d-aa77-472b-8814-d9ae1d1a22b1'" [source]="'loaded'"
+            [height]="totalHeight2" [data]="dataFiltered"></table-dynamic>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button (click)="openFilterDialog()" mat-mini-fab aria-label="Filter"
+  class="fixed top-3 right-20 bg-[#192A64] text-on-primary" style="z-index: 1000">
+  <mat-icon svgIcon="feather:filter"></mat-icon>
+</button>

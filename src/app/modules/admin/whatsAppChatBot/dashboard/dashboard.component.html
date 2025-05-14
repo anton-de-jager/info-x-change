@@ -1,0 +1,195 @@
+<div class="absolute inset-0 flex min-w-0 flex-col overflow-y-auto" cdkScrollable>
+    <div *ngIf="loading" class="loading-overlay">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="-mt-px flex-auto border-t p-4 sm:p-6">
+        <div class="mx-auto w-full max-w-screen-xl">
+            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4 pb-6">
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['users']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Users
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['usersPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['payments']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Payments
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['paymentsPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['arrangements']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Arrangements
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['arrangementsPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['callBacks']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Call Backs
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['callBacksPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['documents']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Documents
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['documentsPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['agentChats']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Agent Chats
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['agentChatsPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
+                    <div class="mt-2 flex flex-col items-center">
+                        <div class="text-7xl font-bold leading-none tracking-tight text-[#f27079] sm:text-8xl">
+                            <ng-container *ngIf="data">{{data['bankingDetails']}}</ng-container>
+                        </div>
+                        <div class="text-lg font-bold text-[#192A64]">
+                            Banking Details
+                        </div>
+                        <div *ngIf="interval!=='total'"
+                            class="text-secondary mt-5 flex w-full items-baseline justify-center">
+                            <div class="truncate text-md font-medium">
+                                <span *ngIf="interval=='today'">Yesterday</span>
+                                <span *ngIf="interval=='week'">Previous Week</span>
+                                <span *ngIf="interval=='month'">Previous Month</span>
+                                <span *ngIf="interval=='year'">Previous Year</span>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold">
+                                <ng-container *ngIf="data">{{data['bankingDetailsPrevious']}}</ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+                <chart-column *ngIf="dataMessages" class="sm:col-span-4 md:col-span-4 lg:col-span-4" [data]="dataMessages"
+                    [title]="'Quantity Messages'" [labelSeries]="'Messages'" [labelValues]="'Messages'"></chart-column>
+                <chart-column *ngIf="dataUsers" class="sm:col-span-1 md:col-span-2 lg:col-span-2" [data]="dataUsers"
+                    [title]="'Quantity Users'" [labelSeries]="'Users'" [labelValues]="'Users'"></chart-column>
+                <chart-column *ngIf="dataArrangements" class="sm:col-span-1 md:col-span-2 lg:col-span-2" [data]="dataArrangements"
+                    [title]="'Total Arrangements'" [labelSeries]="'Arrangements'" [labelValues]="'Arrangements'"></chart-column>
+                <!-- <chart-donut-semi class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut-semi>
+                <chart-donut-semi class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut-semi>
+                <chart-donut-semi class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut-semi>
+                <chart-donut-semi class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut-semi>
+                <chart-donut class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut>
+                <chart-donut class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut>
+                <chart-donut class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut>
+                <chart-donut class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut>
+                <chart-donut class="sm:col-span-1 md:col-span-2 lg:col-span-2"></chart-donut> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<button mat-mini-fab aria-label="Filter" class="fixed top-3 right-20 bg-[#192A64] text-on-primary" style="z-index: 1000"
+    [matMenuTriggerFor]="menu">
+    <mat-icon svgIcon="feather:filter"></mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="updateInterval('today')">Today</button>
+    <button mat-menu-item (click)="updateInterval('week')">The Last Week</button>
+    <button mat-menu-item (click)="updateInterval('month')">The Last Month</button>
+    <button mat-menu-item (click)="updateInterval('year')">The Last Year</button>
+    <!-- <button mat-menu-item (click)="updateInterval('total')">All Time</button> -->
+</mat-menu>

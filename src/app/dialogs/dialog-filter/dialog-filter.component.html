@@ -1,0 +1,138 @@
+<div class="fixed inset-0 sm:relative flex flex-col min-w-0 bg-card dark:bg-gray-800">
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-[#192A64] text-on-primary">
+        <div class="text-lg font-medium">{{data.title}} Filter</div>
+        <button (click)="onNoClick()" mat-icon-button [tabIndex]="-1">
+            <mat-icon class="text-on-primary">close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content
+        class="flex flex-col flex-auto mat-typography bg-card dark:bg-gray-800 pl-0 pr-0 h-fit max-h-max sm:max-h-[65vh]">
+        <form *ngIf="data.form" class="flex flex-col flex-auto" name="form" [formGroup]="data.form" novalidate class="w-full">
+            <ng-container *ngFor="let filterItem of data.filter">
+                <mat-form-field *ngIf="filterItem.filterType=='select'||filterItem.filterType=='select-multiple'" fxFlex appearance="outline"
+                    [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                    <mat-label>{{filterItem.label}}</mat-label>
+                    <mat-select [formControlName]="filterItem.property" [multiple]="filterItem.multiple" class="w-full">
+                        <mat-option *ngFor="let item of filterItem.options | order_by:'label'" [value]="item.value">
+                            {{item.label}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError(filterItem.property, 'required')">
+                        {{filterItem.label}} is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field *ngIf="filterItem.filterType=='month'" fxFlex appearance="outline"
+                    [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                    <mat-label>{{filterItem.label}}</mat-label>
+                    <mat-select [formControlName]="filterItem.property" [multiple]="filterItem.multiple" class="w-full">
+                        <mat-option *ngFor="let item of filterItem.options" [value]="item.value">
+                            {{item.label}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError(filterItem.property, 'required')">
+                        {{filterItem.label}} is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field *ngIf="filterItem.filterType=='date-range'" fxFlex appearance="outline"
+                    [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                    <mat-label>Date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate [formControl]="data.form.controls[filterItem.property].controls.start" placeholder="Start date">
+                        <input matEndDate [formControl]="data.form.controls[filterItem.property].controls.end" placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+
+                    @if (data.form.controls[filterItem.property].controls.start.hasError('matStartDateInvalid')) {
+                    <mat-error>Invalid start date</mat-error>
+                    }
+                    @if (data.form.controls[filterItem.property].controls.end.hasError('matEndDateInvalid')) {
+                    <mat-error>Invalid end date</mat-error>
+                    }
+                </mat-form-field>
+            </ng-container>
+            <!-- <mat-form-field fxFlex appearance="outline"
+                [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                <mat-label>Team Name</mat-label>
+                <mat-select formControlName="teamName" multiple class="w-full">
+                    <mat-option *ngFor="let teamName of teamNames | order_by:'description'"
+                        [value]="teamName.description">
+                        {{teamName.description}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('teamName', 'required')">
+                    Team Name is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline"
+                [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                <mat-label>Agent</mat-label>
+                <mat-select formControlName="agent" multiple class="w-full">
+                    <mat-option *ngFor="let agent of agents | order_by:'description'" [value]="agent.description">
+                        {{agent.description}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('agent', 'required')">
+                    Agent is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline"
+                [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                <mat-label>Month</mat-label>
+                <mat-select formControlName="month" multiple class="w-full">
+                    <mat-option value="1">January</mat-option>
+                    <mat-option value="2">February</mat-option>
+                    <mat-option value="3">March</mat-option>
+                    <mat-option value="4">April</mat-option>
+                    <mat-option value="5">May</mat-option>
+                    <mat-option value="6">June</mat-option>
+                    <mat-option value="7">July</mat-option>
+                    <mat-option value="8">August</mat-option>
+                    <mat-option value="9">September</mat-option>
+                    <mat-option value="10">October</mat-option>
+                    <mat-option value="11">November</mat-option>
+                    <mat-option value="12">December</mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('month', 'required')">
+                    Month is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline"
+                [ngClass]="loading?'w-full pl-2 pr-2 mat-form-field-loading':'w-full pl-2 pr-2'">
+                <mat-label>Date</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+
+                @if (form.controls.start.hasError('matStartDateInvalid')) {
+                <mat-error>Invalid start date</mat-error>
+                }
+                @if (form.controls.end.hasError('matEndDateInvalid')) {
+                <mat-error>Invalid end date</mat-error>
+                }
+            </mat-form-field> -->
+        </form>
+
+    </mat-dialog-content>
+    <mat-dialog-actions class="flex items-end flex-row items-center justify-between bg-gray-200 dark:bg-gray-600">
+        <div>
+            <!-- <button *ngIf="id" mat-icon-button [color]="'warn'" (click)="onDeleteClick()">
+                <ng-container *ngIf="!loading; else spinnerTemplate">
+                    <mat-icon>delete</mat-icon>
+                </ng-container>
+                <ng-template #spinnerTemplate>
+                    <mat-spinner [diameter]="24" [color]="'warn'"></mat-spinner>
+                </ng-template>
+            </button> -->
+        </div>
+        <button mat-icon-button class="bg-[#192A64]" [disabled]="!data.form.valid" (click)="onYesClick()">
+            <ng-container *ngIf="!loading; else spinnerTemplate">
+                <mat-icon class="text-on-primary">check</mat-icon>
+            </ng-container>
+            <ng-template #spinnerTemplate>
+                <mat-spinner [diameter]="24" [color]="'#192A64'" class="text-on-primary"></mat-spinner>
+            </ng-template>
+        </button>
+    </mat-dialog-actions>
+</div>

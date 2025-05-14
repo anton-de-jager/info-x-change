@@ -1,0 +1,73 @@
+<div class="flex flex-col h-full w-full">
+    <div *ngIf="loading" class="loading-overlay">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="flex-1 overflow-hidden overflow-x-auto" [style.padding-bottom.px]="gap">
+        <table *ngIf="dataSource" mat-table [dataSource]="dataSource"
+            class="min-w-full min-h-full whitespace-nowrap overflow-hidden" matSort (matSortChange)="sortData($event)">
+            <ng-container *ngFor="let configItem of columns">
+                <ng-container *ngIf="configItem.visibleTable" matColumnDef="{{configItem.property}}">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header
+                        class='table-header-column bg-[#192A64] text-on-primary'>
+                        {{configItem.label}}
+                    </th>
+                    <td mat-cell *matCellDef="let row" class="selectable" (click)="opedDetails(row)">
+                        <span *ngIf="row">
+                            <ng-container *ngIf="configItem.dataType == 'date'">
+                                {{row[configItem.property] | date:'yyyy-MM-dd'}}
+                            </ng-container>
+                            <ng-container *ngIf="configItem.dataType == 'time'">
+                                {{row[configItem.property]}}
+                            </ng-container>
+                            <ng-container *ngIf="configItem.dataType == 'number'">
+                                {{row[configItem.property] | number: '1.0-0'}}
+                            </ng-container>
+                            <ng-container *ngIf="configItem.dataType == 'decimal'">
+                                {{row[configItem.property] | number: '1.0-2'}}
+                            </ng-container>
+                            <ng-container *ngIf="configItem.dataType == 'percentage'">
+                                {{row[configItem.property] | number: '1.0-2'}}%
+                            </ng-container>
+                            <ng-container *ngIf="configItem.dataType == 'string'">
+                                {{row[configItem.property]}}
+                            </ng-container>
+                        </span>
+                    </td>
+                </ng-container>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="loading?'table-row-loading':''">
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="dataSource" class="flex flex-row bg-[#192A64] text-on-primary justify-between pl-4 pr-4">
+        <mat-paginator [pageSize]="10" [hidePageSize]="true" [disabled]="loading"
+            class="bg-[#192A64] text-white" (page)="onPageChange($event)"></mat-paginator>
+        <div class="flex items-center">
+            <button *ngIf="table.allowExportExcel" mat-icon-button class="bg-[#192A64]" (click)="exportToExcel()">
+                <ng-container *ngIf="!loading; else spinnerTemplate">
+                    <mat-icon class="text-on-primary">grid_on</mat-icon>
+                </ng-container>
+                <ng-template #spinnerTemplate>
+                    <mat-spinner [diameter]="24" [color]="'[#192A64]'" class="text-on-primary"></mat-spinner>
+                </ng-template>
+            </button>
+            <button *ngIf="table.allowExportPdf" mat-icon-button class="bg-[#192A64]" (click)="exportToPDF()">
+                <ng-container *ngIf="!loading; else spinnerTemplate">
+                    <mat-icon class="text-on-primary">picture_as_pdf</mat-icon>
+                </ng-container>
+                <ng-template #spinnerTemplate>
+                    <mat-spinner [diameter]="24" [color]="'[#192A64]'" class="text-on-primary"></mat-spinner>
+                </ng-template>
+            </button>
+            <button *ngIf="table.allowFilter" mat-icon-button class="bg-[#192A64]" (click)="openFilterDialog()">
+                <ng-container *ngIf="!loading; else spinnerTemplate">
+                    <mat-icon class="text-on-primary" svgIcon="feather:filter"></mat-icon>
+                </ng-container>
+                <ng-template #spinnerTemplate>
+                    <mat-spinner [diameter]="24" [color]="'[#192A64]'" class="text-on-primary"></mat-spinner>
+                </ng-template>
+            </button>
+        </div>
+    </div>
+</div>

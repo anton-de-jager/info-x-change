@@ -1,0 +1,18 @@
+<mat-card appearance="outlined" class="rounded-2xl">
+    <mat-card-header class="w-full">
+        <mat-card-header class="w-full">
+            <div style="text-align:center; width:100%;">
+                <h1 class="text-xl font-semibold text-center">{{title}}</h1>
+            </div>
+        </mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+        <div id="chart" class="w-full">
+            <apx-chart class="w-full" [series]="chartOptions.series" [chart]="chartOptions.chart"
+                [dataLabels]="chartOptions.dataLabels" [plotOptions]="chartOptions.plotOptions"
+                [yaxis]="chartOptions.yaxis" [xaxis]="chartOptions.xaxis" [stroke]="chartOptions.stroke"
+                [grid]="chartOptions.grid" [fill]="chartOptions.fill"
+                [annotations]="chartOptions.annotations"></apx-chart>
+        </div>
+    </mat-card-content>
+</mat-card>

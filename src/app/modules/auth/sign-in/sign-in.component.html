@@ -1,0 +1,114 @@
+<div class="flex min-w-0 flex-auto flex-col items-center sm:justify-center">
+    <div class="w-full px-4 py-8 sm:bg-card sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow">
+        <div class="mx-auto w-full max-w-80 sm:mx-0 sm:w-80">
+            <!-- Logo -->
+            <div class="w-full">
+                <img src="images/logo/logo-text.png" />
+            </div>
+
+            <!-- Title -->
+            <div *ngIf="!step1" class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">
+                Sign in
+            </div>
+            <div *ngIf="step1" class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">
+                Verify
+            </div>
+            <div *ngIf="step1" class="mt-0.5 flex items-baseline font-medium">
+                A verification code has been sent to your email address.
+            </div>
+            <!-- <div class="mt-0.5 flex items-baseline font-medium">
+                <div>Don't have an account?</div>
+                <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-up']">Sign up
+                </a>
+            </div> -->
+
+            <!-- Alert -->
+            @if (showAlert) {
+            <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                [@shake]="alert.type === 'error'">
+                {{ alert.message }}
+            </fuse-alert>
+            }
+
+            <!-- Sign in form -->
+            <form *ngIf="!step1" class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
+                <!-- Email field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Email address</mat-label>
+                    <input id="email" matInput [formControlName]="'email'" />
+                    @if (signInForm.get('email').hasError('required')) {
+                    <mat-error> Email address is required </mat-error>
+                    }
+                    @if (signInForm.get('email').hasError('email')) {
+                    <mat-error>
+                        Please enter a valid email address
+                    </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Password field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Password</mat-label>
+                    <input id="password" matInput type="password" [formControlName]="'password'" #passwordField />
+                    <button mat-icon-button type="button" (click)="
+                            passwordField.type === 'password'
+                                ? (passwordField.type = 'text')
+                                : (passwordField.type = 'password')
+                        " matSuffix>
+                        @if (passwordField.type === 'password') {
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        }
+                        @if (passwordField.type === 'text') {
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                        }
+                    </button>
+                    <mat-error> Password is required </mat-error>
+                </mat-form-field>
+
+                <!-- Actions -->
+                <!-- <div class="mt-1.5 inline-flex w-full items-center justify-between">
+                    <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'">
+                        Remember me
+                    </mat-checkbox>
+                    <a class="text-md font-medium text-primary-500 hover:underline"
+                        [routerLink]="['/forgot-password']">Forgot password?
+                    </a>
+                </div> -->
+
+                <!-- Submit button -->
+                <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'"
+                    [disabled]="signInForm.disabled" (click)="signIn()">
+                    @if (!signInForm.disabled) {
+                    <span> Sign in </span>
+                    }
+                    @if (signInForm.disabled) {
+                    <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+                    }
+                </button>
+            </form>
+
+            <!-- Verify form -->
+            <form *ngIf="step1" class="mt-8" [formGroup]="verifyForm" #verifyNgForm="ngForm">                
+
+                <mat-form-field class="w-full">
+                    <mat-label>Verification Code</mat-label>
+                    <input id="code" matInput [formControlName]="'code'" />
+                    @if (verifyForm.get('code').hasError('required')) {
+                    <mat-error> Code is required </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Submit button -->
+                <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'"
+                    [disabled]="verifyForm.disabled" (click)="verify()">
+                    @if (!verifyForm.disabled) {
+                    <span> Verify </span>
+                    }
+                    @if (verifyForm.disabled) {
+                    <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+                    }
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

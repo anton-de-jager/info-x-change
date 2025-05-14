@@ -1,0 +1,21 @@
+<div class="absolute inset-0 flex min-w-0 flex-col p-4 space-y-4">
+  <div #firstRow class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <mat-card class="p-4 flex flex-col h-full">
+      <h1 class="text-xl font-semibold text-center">Attempted Calls</h1>
+
+      <div class="flex-1 flex items-center justify-center">
+        <div class="text-4xl font-bold">5487</div>
+      </div>
+    </mat-card>
+
+    <mat-card class="p-4 flex flex-col h-full"><chart-donut-semi [currentValue]="10079208" [totalValue]="14938800" [title]="'Agent Calls to Target'" [height]="firstRowHeight"></chart-donut-semi></mat-card>
+    <mat-card class="p-4 flex flex-col h-full"><chart-donut-semi [currentValue]="7768176" [totalValue]="14938800" [title]="'RPC to Target'" [height]="firstRowHeight"></chart-donut-semi></mat-card>
+    <mat-card class="p-4 flex flex-col h-full"><chart-donut-semi [currentValue]="500450" [totalValue]="746940" [title]="'PTP to Target'" [height]="firstRowHeight"></chart-donut-semi></mat-card>
+  </div>
+
+  <div #secondRow class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <mat-card class="p-4 flex flex-col h-full"><chart-donut-semi [currentValue]="188980" [totalValue]="248980" [title]="'Activations to Target'" [height]="secondRowHeight"></chart-donut-semi></mat-card>
+    <mat-card class="p-4 flex flex-col h-full"><chart-donut-semi [currentValue]="121004" [totalValue]="149388" [title]="'Debit Order Arrangements to Target'" [height]="secondRowHeight"></chart-donut-semi></mat-card>
+    <mat-card class="p-4 flex flex-col h-full"><chart-donut-semi [currentValue]="5098764284" [totalValue]="5598764284" [title]="'Collections to Target'" [height]="secondRowHeight"></chart-donut-semi></mat-card>
+  </div>
+</div>

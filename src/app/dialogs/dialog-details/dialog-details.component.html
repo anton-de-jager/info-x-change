@@ -1,0 +1,47 @@
+<div class="fixed inset-0 sm:relative flex flex-col min-w-0 bg-card dark:bg-gray-800">
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-[#192A64] text-on-primary">
+        <div class="text-lg font-medium">Details</div>
+        <button (click)="done()" mat-icon-button [tabIndex]="-1">
+            <mat-icon class="text-on-primary">close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content
+        class="flex flex-col flex-auto mat-typography bg-card dark:bg-gray-800 pl-0 pr-0 h-fit max-h-max sm:max-h-[65vh]">
+        <div class="grid w-full min-w-0 grid-cols-1 md:grid-cols-2 gap-6 pl-6 pr-6">
+            <ng-container *ngFor="let item of data.columns">
+                <div *ngIf="item.visibleDialog" class="flex flex-col w-full">
+                    <h2 class="font-bold">
+                        {{item.label}}
+                    </h2>
+                    <ng-container *ngIf="item.dataType == 'date'">
+                        {{getValue(item.property) | date:'yyyy-MM-dd'}}
+                    </ng-container>
+                    <ng-container *ngIf="item.dataType == 'time'">
+                        {{getValue(item.property)}}
+                    </ng-container>
+                    <ng-container *ngIf="item.dataType == 'number'">
+                        {{getValue(item.property) | number: '1.0-0'}}
+                    </ng-container>
+                    <ng-container *ngIf="item.dataType == 'decimal'">
+                        {{getValue(item.property) | number: '1.0-2'}}
+                    </ng-container>
+                    <ng-container *ngIf="item.dataType == 'string'">
+                        {{getValue(item.property)}}
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </mat-dialog-content>
+    <!-- <mat-dialog-actions class="flex items-end flex-row items-center justify-between bg-gray-200 dark:bg-gray-600">
+        <div>
+        </div>
+        <button mat-icon-button class="bg-[#192A64]" (click)="done()">
+            <ng-container *ngIf="!loading; else spinnerTemplate">
+                <mat-icon class="text-on-primary">check</mat-icon>
+            </ng-container>
+            <ng-template #spinnerTemplate>
+                <mat-spinner [diameter]="24" [color]="'#192A64'" class="text-on-primary"></mat-spinner>
+            </ng-template>
+        </button>
+    </mat-dialog-actions> -->
+</div>
